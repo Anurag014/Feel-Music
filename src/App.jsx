@@ -1,9 +1,17 @@
-
+import Navbar from "./components/Navbar"
+import { Toaster } from "@/components/ui/sonner"
+import Sidebar from "./components/Sidebar"
 function App() {
 
   return (
     <>
-      <h1 className='bg-red-500 p-4'>Music App</h1>
+      <div className="flex">
+      <Sidebar/>
+        <main className="flex-1 w-5/6">
+          <Navbar />
+        </main>
+        <Toaster position="top-right" richColors />
+      </div>
     </>
   )
 }
