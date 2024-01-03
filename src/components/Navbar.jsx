@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/carousel"
 
 
+
 const Navbar = () => {
 
     return (
         <>
+
             <div className="w-screen h-screen flex justify-center items-center bg-black text-white">
                 <Carousel className="w-full max-w-lg bg-red-500">
                     <CarouselContent className="">
@@ -32,6 +34,7 @@ const Navbar = () => {
                     <CarouselNext />
                 </Carousel>
             </div>
+
 
         </>
     )

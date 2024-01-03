@@ -1,9 +1,11 @@
+import Navbar from "./components/NavBar"
+
 
 function App() {
 
   return (
     <>
-      <h1 className='bg-red-500 p-4'>Music App</h1>
+      <Navbar />
     </>
   )
 }
