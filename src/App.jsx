@@ -1,18 +1,5 @@
-// import {
-//   searchMusics,
-//   searchAlbums,
-//   searchPlaylists,
-//   getSuggestions,
-//   listMusicsFromAlbum,
-//   listMusicsFromPlaylist,
-//   searchArtists,
-//   getArtist,
-// } from 'node-youtube-music';
 
 function App() {
-
-  // const music = searchMusics("Ram Ayenge");
-  // console.log(music)
 
   return (
     <>
