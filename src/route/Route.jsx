@@ -1,7 +1,7 @@
-import { Routes, createBrowserRouter } from "react-router-dom";
-import Layout from "./Layout";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "@/pages/home/Home";
 import Library from "@/pages/library/library";
+import Error404 from "@/pages/Error404";
 import App from "@/App";
 
 const router = createBrowserRouter([
@@ -10,14 +10,18 @@ const router = createBrowserRouter([
         element: <App/>,
         children: [
             {
-                path: '',
+                path: '/',
                 element: <Home />
             },
             {
-                path: 'library',
+                path: '/library',
                 element: <Library />
-            }
-        ]
+            },
+        ],
+    },
+    {
+        path:"*",
+        element:<Error404/>
     }
 ])
 
