@@ -3,25 +3,31 @@ import Home from "@/pages/home/Home";
 import Library from "@/pages/library/library";
 import Error404 from "@/pages/Error404";
 import App from "@/App";
+import Music from "@/pages/music/Music";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App/>,
+        element: <App />,
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Home />,
+
             },
             {
                 path: '/library',
                 element: <Library />
             },
+            {
+                path: '/music/:youtubeId',
+                element: <Music />
+            }
         ],
     },
     {
-        path:"*",
-        element:<Error404/>
+        path: "*",
+        element: <Error404 />
     }
 ])
 
