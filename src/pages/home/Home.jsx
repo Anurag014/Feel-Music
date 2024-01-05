@@ -29,8 +29,8 @@ function Home() {
   const { searchResults, loading, error } = useSearch();
   console.log(searchResults)
   const { musicsResults, albumsResults, playlistsResults, artistsResults } = searchResults;
-  if(error){
-    toast.error('Something went wrong', {
+  if (error) {
+    return toast.error('Something went wrong', {
       description: "Please try again later!",
       action: {
         label: "Undo",
@@ -38,45 +38,55 @@ function Home() {
       },
     });
   }
-  return loading ? <div className="w-1/2">
-    <Lottie animationData={SearchingAnimation} loop={true} />
-  </div> : (
+
+  if (loading) {
+    return <div className="w-1/2">
+      <Lottie animationData={SearchingAnimation} loop={true} />
+    </div>
+  }
+  return (
     <>
       {/* music part */}
       <h1 className="text-2xl font-bold text-center my-4">Related musics for your search</h1>
-      <Link to="/">
-        <Carousel className="mx-4">
-          <CarouselContent className="w-96">
-            {musicsResults && musicsResults?.map((music) => (
-              <CarouselItem key={music.id} className='basis-52'>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{music.title}</CardTitle>
-                    <CardDescription>{music.isExplicit ? <BsExplicit /> : null}</CardDescription>
-                  </CardHeader>
-                  <CardContent className='px-4 flex justify-center'>
-                    <img src={music.thumbnailUrl} alt={music.title} />
-                  </CardContent>
-                  {/* if needed */}
-                  <CardFooter>
-                    <Popover>
-                      <PopoverTrigger>
-                        <Button>Artists</Button>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        {music.artists.map((artist) => (
-                          <div className="flex flex-wrap w-auto" key={artist.id} >
-                            <Badge variant="outline" className="text-xs my-1">{artist.name}</Badge>
-                          </div>
-                        ))}</PopoverContent>
-                    </Popover>
-                  </CardFooter>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </Link>
+      <Carousel className="mx-4">
+        <CarouselContent className="w-96">
+          {musicsResults && musicsResults?.map((music) => (
+            <CarouselItem key={music.youtubeId} className='basis-52 h-80'>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{music.title}</CardTitle>
+                  <CardDescription>{music.isExplicit ? <BsExplicit /> : null}</CardDescription>
+                </CardHeader>
+                <CardContent className='px-4 flex justify-center'>
+                  <img src={music.thumbnailUrl} alt={music.title} />
+                </CardContent>
+                {/* if needed */}
+                <CardFooter>
+                  <Popover>
+                    <PopoverTrigger>
+                      <Button>Artists</Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      {music.artists.map((artist) => (
+                        <div className="flex flex-wrap w-auto" key={artist.id} >
+                          <Badge variant="outline" className="text-xs my-1">{artist.name}</Badge>
+                        </div>
+                      ))}</PopoverContent>
+                  </Popover>
+                  <Link to={{
+                    pathname: `/music/${music.youtubeId}`,
+                    search: `?title=${music.title}&thumbnailUrl=${encodeURIComponent(music.thumbnailUrl)}&artists=${JSON.stringify(music.artists)}`}} 
+                    key={music.youtubeId}
+                    className="px-2 hover:underline active:underline"
+                    >
+                    Listen
+                  </Link>
+                </CardFooter>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       {/* album part */}
       <h1 className="text-2xl font-bold text-center my-4">Related albums for your search</h1>
@@ -84,7 +94,7 @@ function Home() {
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
             {albumsResults && albumsResults?.map((album) => (
-              <CarouselItem key={album.id} className='basis-52'>
+              <CarouselItem key={album.albumId} className='basis-52'>
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{album.title}</CardTitle>
@@ -107,7 +117,7 @@ function Home() {
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
             {playlistsResults && playlistsResults?.map((playlist) => (
-              <CarouselItem key={playlist.id} className='basis-52'>
+              <CarouselItem key={playlist.playlistId} className='basis-52'>
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{playlist.title}</CardTitle>
@@ -129,7 +139,7 @@ function Home() {
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
             {artistsResults && artistsResults?.map((artist) => (
-              <CarouselItem key={artist.id} className='basis-52'>
+              <CarouselItem key={artist.artistId} className='basis-52'>
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{artist.name}</CardTitle>
