@@ -13,7 +13,6 @@ const Navbar = () => {
   const navigate  = useNavigate();
   const handleChange = (e) => {
     setSearch(e.target.value);
-    navigate('/')
   }
   const handleSearch = async (e) => {
     e.preventDefault();
