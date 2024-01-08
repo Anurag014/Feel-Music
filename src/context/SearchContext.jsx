@@ -19,7 +19,7 @@ export const SearchProvider = ({ children }) => {
       const results = {};
 
       for (const endpoint of endpoints) {
-        const url = `https://10097b2b-9957-4339-b1cd-c510ad531fc5-00-3ds2d9xmjg2e2.asia-b.replit.dev/search/${endpoint}?query=${searchQuery}`;
+        const url = `https://yt-music-api-zeta.vercel.app/api/express/search/${endpoint}?query=${searchQuery}`;
         console.log(url);
         const response = await fetch(url);
         results[`${endpoint}Results`] = await response.json();
@@ -34,19 +34,19 @@ export const SearchProvider = ({ children }) => {
   };
 
 
-const updateSearchResults = async () => {
-  if (searchQuery.trim() !== '') {
-    const results = await fetchSearchResults();
-    setSearchResults(results);
-  }
-};
-return (
-  <SearchContext.Provider
-    value={{ searchQuery, setSearchQuery, searchResults, updateSearchResults,loading,error }}
-  >
-    {children}
-  </SearchContext.Provider>
-);
+  const updateSearchResults = async () => {
+    if (searchQuery.trim() !== '') {
+      const results = await fetchSearchResults();
+      setSearchResults(results);
+    }
+  };
+  return (
+    <SearchContext.Provider
+      value={{ searchQuery, setSearchQuery, searchResults, updateSearchResults, loading, error }}
+    >
+      {children}
+    </SearchContext.Provider>
+  );
 };
 
 const useSearch = () => {

@@ -1,90 +1,50 @@
 import { useParams, useLocation } from "react-router-dom"
-import { PlayerState, useYoutube } from "react-youtube-music-player";
-import {
-    IoPause,
-    IoPlay,
-    IoPlaySkipBack,
-    IoPlaySkipForward,
-    IoStop,
-    IoVolumeHigh,
-    IoVolumeMedium,
-    IoVolumeLow,
-    IoVolumeMute
-} from "react-icons/io5";
-import { Badge } from "@/components/ui/badge";
+import { usePalette } from 'react-palette';
+import { Button } from "@/components/ui/button";
+import { useControl } from "@/context/ControlContext";
+import { useEffect } from "react";
+import PlayAndPause from "@/components/PlayAndPause";
+import Suggestions from "@/components/Suggestions";
 const Music = () => {
-    const { youtubeId } = useParams();
-    console.log(youtubeId);
+    const { youtubeId, type } = useParams();
+    const { setYoutubeId, setType, setMusicInfo, setColorPalette } = useControl();
     const location = useLocation();
     const query = new URLSearchParams(location.search);
-    const { playerDetails, actions } = useYoutube({
-        id: youtubeId,
-        type: "video",
-        options: {
-            autoplay: true,
-        }
-    });
     const music = {
-        youtubeId: youtubeId,
         title: query.get('title'),
         thumbnailUrl: decodeURIComponent(query.get('thumbnailUrl')),
         artists: JSON.parse(query.get('artists'))
     };
     console.log(music)
-    const renderVolumeIcon = () => {
-        if (playerDetails.volume === 0) {
-            return <IoVolumeMute />;
-        }
-        if (playerDetails.volume <= 30) {
-            return <IoVolumeLow />;
-        }
-        if (playerDetails.volume <= 60) {
-            return <IoVolumeMedium />;
-        }
-        return <IoVolumeHigh />;
-    };
+    const { data, loading, error } = usePalette(music.thumbnailUrl)
+    console.log(data, loading, error)
+    useEffect(() => {
+        setYoutubeId(youtubeId);
+        setType(type);
+        setMusicInfo(music)
+        setColorPalette(data)
+    }, [youtubeId, type, data])
     return (
-        <div>
-            <h1>react-youtube-music-player</h1>
-            <div className="video-title">{playerDetails.title}</div>
-            <div className="player-controls">
-                <button onClick={actions.previousVideo}>
-                    <IoPlaySkipBack />
-                </button>
-                {playerDetails.state === PlayerState.PLAYING ? (
-                    <button className="emphasised" onClick={actions.pauseVideo}>
-                        <IoPause />
-                    </button>
-                ) : (
-                    <button className="emphasised" onClick={actions.playVideo}>
-                        <IoPlay />
-                    </button>
-                )}
-                <button onClick={actions.stopVideo}>
-                    <IoStop />
-                </button>
-                <button onClick={actions.nextVideo}>
-                    <IoPlaySkipForward />
-                </button>
-                <div className="volume-control">
-                    {renderVolumeIcon()}
-                    <input
-                        type="range"
-                        value={playerDetails.volume ?? 0}
-                        min={0}
-                        max={100}
-                        onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
-                    />
+        <>
+            <div className={`p-4 flex flex-col sm:flex-row gap-4 md:gap-8 items-center justify-center md:justify-start`}
+                style={{
+                    background: `linear-gradient(to bottom, ${data.vibrant} 50%, black)`,
+                }}
+            >
+                <img src={music.thumbnailUrl} alt={music.title} className="w-52 shadow-2xl rounded-lg object-contain" referrerPolicy="no-referrer" />
+                <div className="flex flex-col px-8 gap-4">
+                    <h1 className="text-4xl md:text-[3rem] lg:text-[5rem] md:leading-10 lg:leading-[5rem] font-black">{music.title}</h1>
+                    <h2 className="text-xl font-semibold flex-col flex">{music.artists.map((artist, index) => (
+                        <span key={index} className="px-4">{artist.name}</span>
+                    ))}
+                    </h2>
                 </div>
-                <img src={music.thumbnailUrl} alt={music.title} />
-                {music.artists.map((artist) => (
-                    <div className="flex flex-wrap w-auto" key={artist.id} >
-                        <Badge variant="outline" className="text-xs my-1 text-white">{artist.name}</Badge>
-                    </div>
-                ))}
-                <div>/suggestions/:youtubeId ka istemaal karke diye kisi bhi gaane ka suggestions get kar skte s recommendation aam bhasha me</div>
             </div>
-        </div>
+            <Button className='rounded-full mx-2'>
+                <PlayAndPause />
+            </Button>
+            <Suggestions youtubeId={youtubeId}/>
+        </>
     )
 }
 

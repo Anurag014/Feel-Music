@@ -1,29 +1,15 @@
 import { useSearch } from "@/context/SearchContext"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
-import { BsExplicit } from "react-icons/bs";
+import { BsFillExplicitFill } from "react-icons/bs";
 import Lottie from "lottie-react";
 import SearchingAnimation from "@/assets/SearchingAnimation";
+import Image from "@/components/Image";
 
 function Home() {
   const { searchResults, loading, error } = useSearch();
@@ -44,6 +30,10 @@ function Home() {
       <Lottie animationData={SearchingAnimation} loop={true} />
     </div>
   }
+  if(searchResults.length === 0 ){
+    console.log('search something')
+    return <h1>Search something</h1>
+  }
   return (
     <>
       {/* music part */}
@@ -53,12 +43,12 @@ function Home() {
           {musicsResults && musicsResults?.map((music) => (
             <CarouselItem key={music.youtubeId} className='basis-52 h-80'>
               <Card>
-                <CardHeader>
+                <CardHeader className='flex items-center flex-row'>
                   <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{music.title}</CardTitle>
-                  <CardDescription>{music.isExplicit ? <BsExplicit /> : null}</CardDescription>
+                  <CardDescription>{music.isExplicit ? <BsFillExplicitFill color="white" className="mx-1"/> : null}</CardDescription>
                 </CardHeader>
                 <CardContent className='px-4 flex justify-center'>
-                  <img src={music.thumbnailUrl} alt={music.title} />
+                  <Image src={music.thumbnailUrl} alt={music.title}/>
                 </CardContent>
                 {/* if needed */}
                 <CardFooter>
@@ -74,11 +64,12 @@ function Home() {
                       ))}</PopoverContent>
                   </Popover>
                   <Link to={{
-                    pathname: `/music/${music.youtubeId}`,
-                    search: `?title=${music.title}&thumbnailUrl=${encodeURIComponent(music.thumbnailUrl)}&artists=${JSON.stringify(music.artists)}`}} 
+                    pathname: `/music/${music.youtubeId}/video`,
+                    search: `?title=${music.title}&thumbnailUrl=${encodeURIComponent(music.thumbnailUrl)}&artists=${JSON.stringify(music.artists)}`
+                  }}
                     key={music.youtubeId}
                     className="px-2 hover:underline active:underline"
-                    >
+                  >
                     Listen
                   </Link>
                 </CardFooter>
@@ -96,12 +87,12 @@ function Home() {
             {albumsResults && albumsResults?.map((album) => (
               <CarouselItem key={album.albumId} className='basis-52'>
                 <Card>
-                  <CardHeader>
+                  <CardHeader className='flex items-center flex-row'>
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{album.title}</CardTitle>
-                    <CardDescription>{album.isExplicit ? <BsExplicit /> : null}</CardDescription>
+                    <CardDescription>{album.isExplicit ? <BsFillExplicitFill color="white" className="mx-1"/> : null}</CardDescription>
                   </CardHeader>
                   <CardContent className='px-4 flex justify-center'>
-                    <img src={album.thumbnailUrl} alt={album.title} />
+                    <Image src={album.thumbnailUrl} alt={album.title}  />
                   </CardContent>
                   <CardDescription className='text-center pb-4'>{album.type} . {album.year}</CardDescription>
                 </Card>
@@ -123,7 +114,7 @@ function Home() {
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{playlist.title}</CardTitle>
                   </CardHeader>
                   <CardContent className='px-4 flex justify-center'>
-                    <img src={playlist.thumbnailUrl} alt={playlist.title} className="object-contain w-36 h-36" />
+                    <Image src={playlist.thumbnailUrl} alt={playlist.title}  />
                   </CardContent>
                   <CardDescription className='text-center pb-4'>Total Songs {playlist.totalSongs}</CardDescription>
                 </Card>
@@ -145,7 +136,7 @@ function Home() {
                     <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{artist.name}</CardTitle>
                   </CardHeader>
                   <CardContent className='px-4 flex justify-center'>
-                    <img src={artist.thumbnailUrl} alt={artist.name} className="object-contain w-36 h-36" />
+                    <Image src={artist.thumbnailUrl} alt={artist.name}  />
                   </CardContent>
                   <CardDescription className='text-center pb-4'> {artist.subscribers}</CardDescription>
                 </Card>

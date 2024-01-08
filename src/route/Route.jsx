@@ -20,7 +20,7 @@ const router = createBrowserRouter([
                 element: <Library />
             },
             {
-                path: '/music/:youtubeId',
+                path: '/music/:youtubeId/:type',
                 element: <Music />
             }
         ],
