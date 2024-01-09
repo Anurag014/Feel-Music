@@ -68,11 +68,6 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      fontFamily: {
-        'pro-regular': ['Netflix-regular', 'sans-serif'],
-        'pro-medium': ['Netflix-medium', 'sans-serif'],
-        'pro-bold': ['Netflix-bold', 'sans-serif'],
-      },
     },
   },
   plugins: [],
