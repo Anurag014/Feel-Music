@@ -56,7 +56,7 @@ const ControlFooter = () => {
                         />
                     </div>
                     <div className="music-info flex-grow">
-                        <div className="text-xl font-bold line-clamp-1 w-52">{musicInfo.title ? musicInfo.title : 'No music playing'}</div>
+                        <div className="text-xl font-bold line-clamp-1">{musicInfo.title ? musicInfo.title : 'No music playing'}</div>
                         <div className="text-xs font-semibold flex space-x-4">{musicInfo.artists && musicInfo.artists.map((artist, index) => (
                             <span key={index} className="">{artist.name}</span>
                         ))}
