@@ -16,8 +16,6 @@ const ControlFooter = () => {
 
     useEffect(() => {
         let intervalId;
-
-        // Update currentTime periodically
         const startUpdatingTime = () => {
             intervalId = setInterval(() => {
                 if (playerDetails.state === PlayerState.PLAYING) {
@@ -36,10 +34,14 @@ const ControlFooter = () => {
         startUpdatingTime();
 
         // Cleanup interval when component unmounts
-        return () => clearInterval(intervalId);
+        return () => {
+            clearInterval(intervalId)
+        };
     }, [playerDetails.currentTime, playerDetails.duration]);
-
-    const handleStop=()=>{
+    useEffect(() => {
+        setCurrentTime(0);
+    }, [musicInfo]);
+    const handleStop = () => {
         actions.stopVideo();
         setCurrentTime(0);
     }
@@ -68,8 +70,8 @@ const ControlFooter = () => {
                         <SlShuffle className="cursor-pointer" size={20} />
                         <HiOutlineBackward className="cursor-pointer" onClick={actions.previousVideo} size={25} />
                         <PlayAndPause />
-                        <HiOutlineStop className="cursor-pointer" 
-                        onClick={handleStop} size={25} />
+                        <HiOutlineStop className="cursor-pointer"
+                            onClick={handleStop} size={25} />
                         <HiOutlineForward className="cursor-pointer" onClick={actions.nextVideo} size={25} />
                     </div>
                     <div className='flex space-x-4 items-center'>
