@@ -34,21 +34,24 @@ function Home() {
     console.log('search something')
     return <h1>Search something</h1>
   }
+
+  const headerText=['Related musics for your search','Related albums for your search','Playlists you might like','Similar artists']
+  const headerTextStyle='text-2xl font-bold text-center my-4'
   return (
     <>
       {/* music part */}
-      <h1 className="text-2xl font-bold text-center my-4">Related musics for your search</h1>
+      <h1 className={headerTextStyle} dangerouslySetInnerHTML={{ __html: headerText[0] }}></h1>
       <Carousel className="mx-4">
         <CarouselContent className="w-96">
           {musicsResults && musicsResults?.map((music) => (
-            <CarouselItem key={music.youtubeId} className='basis-52 h-80'>
+            <CarouselItem key={music.youtubeId} className='basis-52'>
               <Card>
                 <CardHeader className='flex items-center flex-row'>
                   <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{music.title}</CardTitle>
                   <CardDescription>{music.isExplicit ? <BsFillExplicitFill color="white" className="mx-1"/> : null}</CardDescription>
                 </CardHeader>
                 <CardContent className='px-4 flex justify-center'>
-                  <Image src={music.thumbnailUrl} alt={music.title}/>
+                  <Image src={music.thumbnailUrl} alt={music.title} />
                 </CardContent>
                 {/* if needed */}
                 <CardFooter>
@@ -80,7 +83,7 @@ function Home() {
       </Carousel>
 
       {/* album part */}
-      <h1 className="text-2xl font-bold text-center my-4">Related albums for your search</h1>
+      <h1 className={headerTextStyle} dangerouslySetInnerHTML={{ __html: headerText[1] }}></h1>
       <Link to="/">
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
@@ -94,7 +97,7 @@ function Home() {
                   <CardContent className='px-4 flex justify-center'>
                     <Image src={album.thumbnailUrl} alt={album.title}  />
                   </CardContent>
-                  <CardDescription className='text-center pb-4'>{album.type} . {album.year}</CardDescription>
+                  <CardDescription className='text-center text-xs pb-4 font-semibold'>{album.type} . {album.year}</CardDescription>
                 </Card>
               </CarouselItem>
             ))}
@@ -103,7 +106,7 @@ function Home() {
       </Link>
 
       {/* playlist part */}
-      <h1 className="text-2xl font-bold text-center my-4">Related playlists for your search</h1>
+      <h1 className={headerTextStyle} dangerouslySetInnerHTML={{ __html: headerText[2] }}></h1>
       <Link to="/">
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
@@ -116,7 +119,7 @@ function Home() {
                   <CardContent className='px-4 flex justify-center'>
                     <Image src={playlist.thumbnailUrl} alt={playlist.title}  />
                   </CardContent>
-                  <CardDescription className='text-center pb-4'>Total Songs {playlist.totalSongs}</CardDescription>
+                  <CardDescription className='text-center text-xs pb-4 font-semibold'>Total Songs {playlist.totalSongs}</CardDescription>
                 </Card>
               </CarouselItem>
             ))}
@@ -125,20 +128,20 @@ function Home() {
       </Link>
 
       {/* artist part */}
-      <h1 className="text-2xl font-bold text-center my-4">Related artists for your search</h1>
+      <h1 className={headerTextStyle} dangerouslySetInnerHTML={{ __html: headerText[3] }}></h1>
       <Link to="/">
         <Carousel className="mx-4">
           <CarouselContent className="w-96">
             {artistsResults && artistsResults?.map((artist) => (
               <CarouselItem key={artist.artistId} className='basis-52'>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{artist.name}</CardTitle>
-                  </CardHeader>
+                <Card className='border-0'>
                   <CardContent className='px-4 flex justify-center'>
-                    <Image src={artist.thumbnailUrl} alt={artist.name}  />
+                    <Image src={artist.thumbnailUrl} alt={artist.name} className='rounded-full' />
                   </CardContent>
-                  <CardDescription className='text-center pb-4'> {artist.subscribers}</CardDescription>
+                  <CardHeader className='py-0'>
+                    <CardTitle className="text-xs text-center overflow-ellipsis overflow-hidden whitespace-nowrap w-36">{artist.name}</CardTitle>
+                  </CardHeader>
+                  <CardDescription className='text-center text-xs pb-4 font-semibold'> {artist.subscribers}</CardDescription>
                 </Card>
               </CarouselItem>
             ))}

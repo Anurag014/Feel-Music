@@ -14,7 +14,7 @@ const Suggestions = ({ youtubeId }) => {
     const [loading, setLoading] = useState(false)
     const fetchData = async () => {
         try {
-            let url = `https://yt-music-api-zeta.vercel.app/api/express/suggestions/${youtubeId}`
+            let url = `https://yt-music-api-zeta.vercel.app/suggestions/${youtubeId}`
             const response = await fetch(url);
             const results = await response.json();
             setSuggestions(results)
