@@ -4,6 +4,7 @@ import Library from "@/pages/library/library";
 import Error404 from "@/pages/Error404";
 import App from "@/App";
 import Music from "@/pages/music/Music";
+import Playlist from "@/pages/playlist/Playlist";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: '/music/:youtubeId/:type',
                 element: <Music />
+            },
+            {
+                path: '/playlist/:playlistId/:type',
+                element: <Playlist />  
             }
         ],
     },
