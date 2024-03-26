@@ -91,22 +91,6 @@ const ControlFooter = () => {
                         <span>{secondsToTime(playerDetails.duration)}</span>
                     </div>
                 </div>
-                <div className='flex items-center space-x-4 w-1/3 justify-end'>
-                    {
-                        playerDetails.volume === 0 ? <SlVolumeOff className="cursor-pointer" size={25} />
-                            :
-                            playerDetails.volume <= 50 ? <SlVolume1 className="cursor-pointer" size={25} />
-                                :
-                                <SlVolume2 className="cursor-pointer" size={25} />
-                    }
-                    <RangeInput
-                        value={playerDetails.volume ?? 0}
-                        min={0}
-                        max={100}
-                        onChange={(event) => actions.setVolume(event.target.valueAsNumber)}
-                        className='!w-52'
-                    />
-                </div>
             </div>
         </div>
     );

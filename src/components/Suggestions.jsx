@@ -46,7 +46,7 @@ const Suggestions = ({ youtubeId }) => {
                                     <CardDescription>{suggestion.isExplicit ? <BsFillExplicitFill color="white" className="mx-1" /> : null}</CardDescription>
                                 </CardHeader>
                                 <CardContent className='px-4 flex justify-center'>
-                                <Image src={suggestion.thumbnailUrl} alt={suggestion.title}/>
+                                    <Image src={suggestion.thumbnailUrl} alt={suggestion.title} />
                                 </CardContent>
                                 {/* if needed */}
                                 <CardFooter>
@@ -76,6 +76,16 @@ const Suggestions = ({ youtubeId }) => {
                     ))}
                 </CarouselContent>
             </Carousel>
+            {/* <div className="flex items-center py-2 border-b border-gray-300">
+                <img src={suggestions[0].thumbnailUrl} alt={suggestions[0].title} className="w-16 h-16 object-cover rounded mr-4" />
+                <div className="flex flex-col flex-grow">
+                    <div className="text-lg font-bold">{suggestions[0].title}</div>
+                    <div className="text-sm text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                        {suggestions[0].artists[0].name}
+                    </div>
+                </div>
+                <div className="text-sm text-gray-600">{suggestions[0].duration.label}</div>
+            </div> */}
         </>
     )
 }
