@@ -46,8 +46,8 @@ const Recommendations = ({ youtubeId }) => {
                     <div className="flex items-center pb-2 hover:border-white border-[0.5px] border-transparent p-2 rounded-md" >
                         <img src={recommendation.thumbnailUrl} alt={recommendation.title} className="w-12 h-12 object-cover rounded mr-4" />
                         <div className="flex flex-col flex-grow">
-                            <div className="text-md font-bold overflow-hidden overflow-ellipsis" >{recommendation.title}</div>
-                            <div className="text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            <div className="text-md font-bold line-clamp-1" >{recommendation.title}</div>
+                            <div className="text-sm line-clamp-1">
                                 {recommendation.artists.map(artist => artist.name).join(', ')}
                             </div>
                         </div>

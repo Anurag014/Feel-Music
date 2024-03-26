@@ -46,7 +46,7 @@ const ControlFooter = () => {
         setCurrentTime(0);
     }
     return (
-        <div className="text-white px-4 py-2 fixed bottom-0 left-0 w-full md:flex items-center hidden"
+        <div className="text-white px-4 py-2 fixed bottom-0 left-0 w-full sm:flex items-center"
             style={{ backgroundColor: colorPalette && colorPalette.darkVibrant ? colorPalette.darkVibrant : 'black' }}>
             <div className='flex items-center justify-between w-full'>
                 <div className='flex items-center w-1/3'>

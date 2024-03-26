@@ -45,7 +45,9 @@ const MusicPlayer = () => {
             clearInterval(intervalId)
         };
     }, [playerDetails.currentTime, playerDetails.duration, PlayerState.PLAYING]);
-
+    useEffect(() => {
+        setCurrentTime(0);
+    }, [musicInfo]);
     const handleStop = () => {
         actions.stopVideo();
         setCurrentTime(0);
@@ -112,8 +114,9 @@ const MusicPlayer = () => {
                 </div>
                 <h3 className="text-lg text-center font-bold">Lyrics</h3>
                 <div className="mt-4 w-full overflow-y-scroll no-scrollbar">
-                    {/* <Recommendations youtubeId={musicInfo.youtubeId} /> */}
                     <Lyrics youtubeId={musicInfo.youtubeId} />
+                    <Recommendations youtubeId={musicInfo.youtubeId} />
+
                 </div>
 
             </aside>
