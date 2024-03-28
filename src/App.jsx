@@ -27,9 +27,9 @@ function App() {
             </main>
             <Toaster position="top-right" richColors />
           </div>
-          {/* <div className="lg:hidden">
+          <div className="lg:hidden">
             <ControlFooter/>
-          </div> */}
+          </div>
         </SearchProvider>
       </ControlProvider>
     </>
