@@ -47,6 +47,7 @@ const MusicPlayer = () => {
     }, [playerDetails.currentTime, playerDetails.duration, PlayerState.PLAYING]);
     useEffect(() => {
         setCurrentTime(0);
+        actions.playVideo();
     }, [musicInfo]);
     const handleStop = () => {
         actions.stopVideo();

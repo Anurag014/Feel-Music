@@ -40,16 +40,17 @@ const ControlFooter = () => {
     }, [playerDetails.currentTime, playerDetails.duration]);
     useEffect(() => {
         setCurrentTime(0);
+        actions.playVideo();
     }, [musicInfo]);
     const handleStop = () => {
         actions.stopVideo();
         setCurrentTime(0);
     }
     return (
-        <div className="text-white px-4 py-2 fixed bottom-0 left-0 w-full sm:flex items-center"
-            style={{ backgroundColor: colorPalette && colorPalette.darkVibrant ? colorPalette.darkVibrant : 'black' }}>
-            <div className='flex items-center justify-between w-full'>
-                <div className='flex items-center w-1/3'>
+        <div className="text-white px-1 py-2 fixed bottom-0 left-0 w-full sm:flex items-center"
+            style={{ backgroundColor: colorPalette && colorPalette.vibrant ? colorPalette.vibrant : 'black' }}>
+            <div className='flex flex-col md:flex-row items-center md:justify-between w-full'>
+                <div className='flex items-center w-1/3 my-2'>
                     <div className="thumbnail mr-4">
                         <img
                             src={musicInfo.thumbnailUrl}
@@ -59,7 +60,7 @@ const ControlFooter = () => {
                     </div>
                     <div className="music-info flex-grow">
                         <div className="text-xl font-bold line-clamp-1">{musicInfo.title ? musicInfo.title : 'No music playing'}</div>
-                        <div className="text-xs font-semibold flex space-x-4">{musicInfo.artists && musicInfo.artists.map((artist, index) => (
+                        <div className="text-xs font-semibold flex space-x-4">{musicInfo.artists && musicInfo?.artists.map((artist, index) => (
                             <span key={index} className="">{artist.name}</span>
                         ))}
                         </div>
@@ -78,7 +79,7 @@ const ControlFooter = () => {
                         <span>{secondsToTime(currentTime)}</span>
                         <RangeInput
                             value={(currentTime / playerDetails.duration) * 100}
-                            className='!w-96'
+                            className='w-40 mx-4'
                             min={0}
                             max={100}
                             onChange={(event) => {
