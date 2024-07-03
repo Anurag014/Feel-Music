@@ -23,7 +23,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://yt-music-api-zeta.vercel.app/home');
+        const response = await fetch('https://yt-music-api-peta.vercel.app/home');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

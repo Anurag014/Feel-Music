@@ -9,7 +9,7 @@ function Lyrics({ youtubeId }) {
 
     const fetchData = async () => {
         try {
-            let url = `https://yt-music-api-zeta.vercel.app/lyrics/${youtubeId}`
+            let url = `https://yt-music-api-peta.vercel.app/lyrics/${youtubeId}`
             const response = await fetch(url);
             const results = await response.json();
             

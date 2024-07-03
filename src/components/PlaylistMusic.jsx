@@ -9,7 +9,7 @@ function PlaylistMusic({ playlistId }) {
 
     const fetchData = async () => {
         try {
-            let url = `https://yt-music-api-zeta.vercel.app/playlists/${playlistId}`
+            let url = `https://yt-music-api-peta.vercel.app/playlists/${playlistId}`
             const response = await fetch(url);
             const results = await response.json();
             setPlaylistVideos(results)

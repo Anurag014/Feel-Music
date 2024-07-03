@@ -19,7 +19,7 @@ export const SearchProvider = ({ children }) => {
       const results = {};
 
       for (const endpoint of endpoints) {
-        const url = `https://yt-music-api-zeta.vercel.app/search/${endpoint}?query=${searchQuery}`;
+        const url = `https://yt-music-api-peta.vercel.app/search/${endpoint}?query=${searchQuery}`;
         console.log(url);
         const response = await fetch(url);
         results[`${endpoint}Results`] = await response.json();
